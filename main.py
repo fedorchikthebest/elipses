@@ -1,15 +1,15 @@
 import sys
 
-from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPainter, QColor
 from random import randint
+from gui import Ui_MainWindow
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('ui.ui', self)
+        self.setupUi(self)
         self.draw.clicked.connect(self.run)
         self.can_draw = False
 
@@ -25,8 +25,9 @@ class MyWidget(QMainWindow):
         self.repaint()
 
     def draw_elipses(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
         for i in range(randint(1, 10)):
+            qp.setBrush(QColor(randint(0, 255), randint(0, 255),
+                               randint(0, 255)))
             a = randint(1, 101)
             qp.drawEllipse(randint(1, 601), randint(1, 601), a, a)
 
